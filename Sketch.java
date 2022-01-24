@@ -1,36 +1,44 @@
 import processing.core.PApplet;
 
 public class Sketch extends PApplet {
+
+  float ySpeed = 5;
 	
-	
-  /**
-   * Called once at the beginning of execution, put your size all in this method
-   */
   public void settings() {
-	// put your size call here
-    size(400, 400);
+	 size(600, 600);
   }
 
-  /** 
-   * Called once at the beginning of execution.  Add initial set up
-   * values here i.e background, stroke, fill etc.
-   */
-  public void setup() {
-    background(210, 255, 173);
-  }
+float[] circleY = new float[50];
 
-  /**
-   * Called repeatedly, anything drawn to the screen goes here
-   */
-  public void draw() {
-	  
-	// sample code, delete this stuff
-    stroke(128);
-    line(150, 25, 270, 350);  
-
-    stroke(255);
-    line(50, 125, 70, 50);  
+public void setup() {
+  for (int i = 0; i < circleY.length; i++) {
+    circleY[i] = random(height);
   }
-  
-  // define other methods down here.
+}
+
+public void draw() {
+  background(50);
+
+  for (int i = 0; i < circleY.length; i++) {
+    float circleX = width * i / circleY.length;
+    ellipse(circleX, circleY[i], 25, 25);
+
+    if (keyPressed) {
+      if (keyCode == UP) {
+        ySpeed = 10;
+      } 
+      else if (keyCode == DOWN) {
+        ySpeed = 1;
+      } 
+   }
+   
+   circleY[i] = circleY[i] + ySpeed;
+
+    circleY[i]++;
+
+    if (circleY[i] > height) {
+      circleY[i] = 0;
+    }
+  }
+}
 }
